@@ -28,7 +28,7 @@ push: build
 	docker tag $(IMAGE_NAME) $(DOCKER_USERNAME)/$(IMAGE_NAME):$(PUSHTAG)
 	docker push $(DOCKER_USERNAME)/$(IMAGE_NAME)
 
-test: build
+example: build
 	docker run --interactive --tty \
     --volume /var/run/docker.sock:/var/run/docker.sock \
     --volume $(shell pwd)/example.yml:/root/config.yml \
@@ -37,8 +37,9 @@ test: build
 help:
 	@echo "Supported build targets:"
 	@echo "  $(IMAGE_NAME): builds image"
-	@echo "  build: .."
-	@echo "  rebuild: .."
-	@echo "  bash: launches shell inside container"
-	@echo "  clean: removes docker image from local repository"
-	@echo "  help: prints this help menu"
+	@echo "  build:   builds container locally"
+	@echo "  rebuild: rebuilds container locally"
+	@echo "  bash:    launches shell inside container"
+	@echo "  example: runs sampler example.yml"
+	@echo "  clean:   removes docker image from local repository"
+	@echo "  help:    prints this help menu"
