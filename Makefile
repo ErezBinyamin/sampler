@@ -18,7 +18,7 @@ rebuild:
 	touch $(KEEPFILE)
 
 bash: build
-	docker run $(RFLAGS) $(IMAGE_NAME)
+	docker run --entrypoint "" $(RFLAGS) $(IMAGE_NAME) bash
 
 clean:
 	docker images | grep -q "^$(IMAGE_NAME)" && docker image rm $(IMAGE_NAME) || true
@@ -30,6 +30,7 @@ push: build
 
 test: build
 	docker run --interactive --tty \
+    --volume /var/run/docker.sock:/var/run/docker.sock \
     --volume $(shell pwd)/example.yml:/root/config.yml \
     sampler --config /root/config.yml
 
