@@ -29,13 +29,17 @@ barcharts:
     scale: 0
     items:
       - label: UDP bytes in
-        sample: nettop -J bytes_in -l 1 -m udp | awk '{sum += $4} END {print sum}'
+        #sample: nettop -J bytes_in -l 1 -m udp | awk '{sum += $4} END {print sum}'
+        sample: awk '/Udp:/ {getline; print $5}' /proc/net/snmp
       - label: UDP bytes out
-        sample: nettop -J bytes_out -l 1 -m udp | awk '{sum += $4} END {print sum}'
+        #sample: nettop -J bytes_out -l 1 -m udp | awk '{sum += $4} END {print sum}'
+        sample: awk '/Udp:/ {getline; print $6}' /proc/net/snmp
       - label: TCP bytes in
-        sample: nettop -J bytes_in -l 1 -m tcp | awk '{sum += $4} END {print sum}'
+        #sample: nettop -J bytes_in -l 1 -m tcp | awk '{sum += $4} END {print sum}'
+        sample: awk '/Tcp:/ {getline; print $11}' /proc/net/snmp
       - label: TCP bytes out
-        sample: nettop -J bytes_out -l 1 -m tcp | awk '{sum += $4} END {print sum}'
+        #sample: nettop -J bytes_out -l 1 -m tcp | awk '{sum += $4} END {print sum}'
+        sample: awk '/Tcp:/ {getline; print $12}' /proc/net/snmp
 gauges:
   - title: YEAR PROGRESS
     position: [[45, 0], [35, 2]]
@@ -85,7 +89,8 @@ sparklines:
     position: [[22, 20], [23, 8]]
     rate-ms: 200
     scale: 0
-    sample: memory_pressure | grep 'Pages free' | awk '{print $3}'
+    #sample: memory_pressure | grep 'Pages free' | awk '{print $3}'
+    sample: awk '/MemFree/ {print $2}' /proc/meminfo || echo 0
 textboxes:
   - title: Docker containers stats
     position: [[0, 29], [45, 10]]
