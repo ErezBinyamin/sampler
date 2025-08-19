@@ -18,10 +18,10 @@ runcharts:
       - label: GOOGLE
         color: 178
         sample: curl -o /dev/null -s -w '%{time_total}'  https://www.google.com
-      - label: YAHOO
-        sample: curl -o /dev/null -s -w '%{time_total}'  https://search.yahoo.com
-      - label: BING
-        sample: curl -o /dev/null -s -w '%{time_total}'  https://www.bing.com
+      - label: CHATGPT
+        sample: curl -o /dev/null -s -w '%{time_total}'  https://chatgpt.com/
+      - label: YOUTUBE
+        sample: curl -o /dev/null -s -w '%{time_total}'  https://www.youtube.com/
 barcharts:
   - title: Local network activity
     position: [[45, 20], [35, 8]]
